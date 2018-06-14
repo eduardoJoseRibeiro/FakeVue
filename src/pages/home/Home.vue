@@ -1,38 +1,67 @@
 <template>
-    <div>
-        Eu sou a HOME!!!
+    <div class="container">
+        <h3>Lista de Usuários</h3>
         <br>
-        <router-link :to="{ name : 'posts'}">Posts</router-link>
-        <p>{{textoQualquer}}</p>
-        <form @submit.prevent="novoTexto()">
-            <input type="text" v-model="setTexto">
-            <button type="submit">Salvar</button>
-        </form>
+        <router-link :to="{ name : 'posts'}">
+            <button class="btn waves-effects blue">Posts</button> 
+        </router-link>
+        
+        <div class="row">
+            <div class="s-12">
+                <table class="highlight">
+                    <thead>
+                        <tr>
+                            <th>Username</th>
+                            <th>Nome</th>
+                            <th>Email</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr v-for="usuario in usuarios[0]">
+                            <td> @{{usuario.username}} </td>
+                            <td> {{usuario.name}} </td>
+                            <td> {{usuario.email}} </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>            
     </div>    
 </template>
 <script>
-import { mapMutations } from 'vuex'
+import { mapMutations, mapActions } from 'vuex'
 
 export default {
     data(){
         return {
-            setTexto : ''
+            setTexto : '',
+            user : ''
         }
     },
     methods : {
         novoTexto(){
-            this.mudatexto(this.setTexto); //Pode ser feito assim
+            this.mudaTexto(this.setTexto); //Pode ser feito assim
             // this.$store.commit('mudatexto', this.setTexto); //Ou assim!
-            console.log(this.$store.state.textoQualquer);
         },
         ...mapMutations([
-            'mudatexto'
+            'mudaTexto'
+        ]),
+        ...mapActions([
+            'populaUsuarios'
         ])
     },
     computed : {
         textoQualquer(){
             return this.$store.state.textoQualquer
+        },
+        usuarios(){
+            return this.$store.state.usuarios
         }
+    },
+    created(){
+        
+        this.$store.dispatch('populaUsuarios');  
+        this.users = this.usuarios[0];
     }
 }
 </script>

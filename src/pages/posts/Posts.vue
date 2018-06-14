@@ -1,10 +1,12 @@
 <template>
-    <div>
-        Eu sou a página de Posts!!
+    <div class="container">
+        <h3> Eu sou a página de Posts!!</h3>
         <br>
-        <router-link :to="{ name : 'home'}">Home</router-link>
-        <div v-for="post in posts">
-            <h4>{{post.title}}</h4>
+        <router-link :to="{ name : 'home'}">
+           <button class="btn blue waves-effect"> Home</button>
+        </router-link>
+        <div v-for="post in posts" class="collapsible">
+            <h5>{{post.title}}</h5>
             <p>{{post.body}}</p>
         </div>
     </div>    
@@ -37,5 +39,7 @@ export default {
 }
 </script>
 <style>
-
+    .collapsible {
+        padding: 1rem 3rem;
+    }
 </style>
