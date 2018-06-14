@@ -12,6 +12,7 @@
 <script>
 import VueResource from 'vue-resource'
 import Post from '../../domain/post/Post';
+import store from '../../store/store';
 
 export default {
     data(){
@@ -31,7 +32,7 @@ export default {
         }
     },
     created(){
-        this.initPosts();
+        this.initPosts();    
     }
 }
 </script>
